@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en" style="background-color: #0E1116; color-scheme: dark;">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>40 Hz · gamma light and sound</title>
+<meta name="description" content="Accurate gamma pulses for your device.">
+<meta name="theme-color" content="#0E1116">
+<meta property="og:type" content="website">
+<meta property="og:title" content="40 Hz">
+<meta property="og:description" content="Accurate gamma pulses for your device.">
+<meta property="og:url" content="https://heathdutton.github.io/40hz/">
+<meta property="og:image" content="https://heathdutton.github.io/40hz/brand/card.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="The 40 Hz logo: three bars, one lit, next to the name">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<link rel="preload" href="theme/fonts/Inter[opsz,wght].ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="theme/fonts/Phosphor.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="theme/styles.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="icon-btn" href="https://github.com/heathdutton/40hz/blob/main/findings.md" target="_blank" rel="noopener"
+    aria-label="The research behind this" data-tip="The research behind this">
+    <i class="ph" aria-hidden="true">&#xE8F2;</i></a>
+  <a class="icon-btn" href="https://github.com/heathdutton/40hz" target="_blank" rel="noopener"
+    aria-label="Source on GitHub" data-tip="Source on GitHub">
+    <i class="ph" aria-hidden="true">&#xE576;</i></a>
+  <button class="icon-btn" id="openStats" aria-label="Stats" data-tip="Stats">
+    <i class="ph" aria-hidden="true">&#xE150;</i></button>
+  <button class="icon-btn" id="openConfig" aria-label="Settings" data-tip="Settings">
+    <i class="ph" aria-hidden="true">&#xE272;</i></button>
+</nav>
+
+<main class="landing">
+  <h1 class="wordmark" id="wordmark"><svg viewBox="-30 -102.75 441.68 132.75" aria-hidden="true" focusable="false"><title>40 Hz, slowed down 40 times. One frame on, two off.</title>
+<defs><filter id="wm-blur" x="-150%" y="-60%" width="400%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<rect class="wm-glow" x="0" y="-72.75" width="21" height="72.75" rx="4" filter="url(#wm-blur)"/>
+<rect class="wm-lit" x="0" y="-72.75" width="21" height="72.75" rx="4"/><rect class="wm-off wm-f2" x="31.5" y="-72.75" width="21" height="72.75" rx="4"/><rect class="wm-off wm-f3" x="63" y="-72.75" width="21" height="72.75" rx="4"/>
+<path class="wm-ink" d="M112.98 -14.91L112.98 -28.29L143.87 -72.75L154.91 -72.75L154.91 -56.58L148.87 -56.58L129.29 -28.24L129.29 -28.14L174.24 -28.14L174.24 -14.91L112.98 -14.91ZM148.92 0L148.92 -18.98L148.92 -24.93L148.92 -72.75L165.41 -72.75L165.41 0L148.92 0ZM208.54 1.17Q198.97 1.17 192.08 -3.39Q185.2 -7.95 181.51 -16.34Q177.82 -24.74 177.82 -36.35Q177.82 -47.96 181.51 -56.38Q185.19 -64.8 192.08 -69.36Q198.96 -73.93 208.54 -73.93Q218.16 -73.93 225.04 -69.37Q231.91 -64.81 235.59 -56.39Q239.27 -47.96 239.27 -36.32Q239.27 -24.73 235.59 -16.32Q231.91 -7.91 225.04 -3.37Q218.16 1.17 208.54 1.17ZM208.55 -12.58Q212.96 -12.58 216.14 -15.44Q219.31 -18.31 221.02 -23.63Q222.73 -28.96 222.73 -36.33Q222.73 -43.75 221.02 -49.08Q219.31 -54.41 216.13 -57.29Q212.95 -60.18 208.56 -60.18Q204.17 -60.18 200.97 -57.29Q197.78 -54.41 196.07 -49.08Q194.36 -43.75 194.36 -36.33Q194.36 -28.96 196.07 -23.63Q197.78 -18.31 200.98 -15.44Q204.18 -12.58 208.55 -12.58ZM262.07 0L262.07 -72.75L279.62 -72.75L279.62 -44.5L307.33 -44.5L307.33 -72.75L324.87 -72.75L324.87 0L307.33 0L307.33 -29.56L279.62 -29.56L279.62 0L262.07 0ZM332.32 0L332.32 -11.02L356.8 -38.38L356.8 -38.5L332.32 -38.5L332.32 -51.56L376.51 -51.56L376.51 -39.87L352.59 -13.11L352.59 -12.99L376.93 -12.99L376.93 0L332.32 0Z"/></svg><span class="sr-only">40 Hz</span></h1>
+  <p class="tagline">Accurate gamma pulses for your device.</p>
+
+  <section class="check" aria-live="polite">
+    <ul class="chips pending" id="chips">
+      <li><i class="ph" aria-hidden="true">&#xE44A;</i><span class="chip-label">Sound</span>
+        <span id="chipSound" class="dim">checking</span>
+        <i class="ph chip-ok" id="okSound" aria-hidden="true" hidden>&#xE184;</i></li>
+      <li><i class="ph" aria-hidden="true">&#xE32E;</i><span class="chip-label">Light</span>
+        <span id="chipLight" class="dim">checking</span>
+        <button class="chip-fix" id="lightFix" data-tip="How to get 120 Hz in Safari" hidden>Fix</button>
+        <i class="ph chip-ok" id="okLight" aria-hidden="true" hidden>&#xE184;</i></li>
+      <li><i class="ph" aria-hidden="true">&#xE472;</i><span class="chip-label">Brightness</span>
+        <span id="chipHdr" class="dim">checking</span>
+        <i class="ph chip-ok" id="okHdr" aria-hidden="true" hidden>&#xE184;</i></li>
+    </ul>
+  </section>
+
+  <section class="gate" id="gate" hidden>
+    <p class="gate-text" id="gateText"><i class="ph" aria-hidden="true">&#xE4E0;</i>
+      <span>This flickers 40 times a second. Please skip the light if you have epilepsy,
+      photosensitivity or migraines. <span id="gateStop">Click anywhere or hit Esc to stop.</span></span></p>
+    <div class="actions">
+      <button id="lightOff"><i class="ph" aria-hidden="true">&#xE44A;</i><span>Sound only</span></button>
+      <button id="start" class="primary"><i class="ph" aria-hidden="true">&#xE3D0;</i>
+        <span>I understand, begin</span></button>
+    </div>
+  </section>
+
+  <p class="result" id="result" hidden></p>
+</main>
+
+
+<dialog class="pane pane-fix" id="fixPane" aria-labelledby="fixTitle">
+  <header class="pane-head">
+    <h2 id="fixTitle">Get 120 Hz in Safari</h2>
+    <button class="icon-btn" data-close aria-label="Close"><i class="ph" aria-hidden="true">&#xE4F6;</i></button>
+  </header>
+  <div class="pane-body">
+    <p>Safari holds web pages to 60 frames a second, even on a 120&nbsp;Hz screen. Chrome doesn't. You can lift that in
+      Safari's settings.</p>
+    <p id="fixLpm"></p>
+    <ol id="fixMac">
+      <li>Safari → Settings → Advanced, tick <em>Show features for web developers</em>.</li>
+      <li>Open the new Feature Flags tab, search <em>60fps</em>, and untick
+        <em>Prefer Page Rendering Updates near 60fps</em>.</li>
+      <li>Quit Safari, reopen it and come back.</li>
+    </ol>
+    <ol id="fixIos">
+      <li>Settings → Apps → Safari → Advanced → Feature Flags, turn off
+        <em>Prefer Page Rendering Updates near 60fps</em>.</li>
+      <li>Settings → Accessibility → Motion, turn off <em>Limit Frame Rate</em>.</li>
+      <li>Swipe Safari closed, reopen it and come back.</li>
+    </ol>
+    <p class="sub" id="fixNote"></p>
+  </div>
+</dialog>
+
+<dialog class="pane pane-stats" id="statsPane" aria-labelledby="statsTitle">
+  <header class="pane-head">
+    <h2 id="statsTitle">Stats</h2>
+    <button class="icon-btn" data-close aria-label="Close"><i class="ph" aria-hidden="true">&#xE4F6;</i></button>
+  </header>
+  <div class="pane-body">
+  <div id="verdict" class="verdict">Checking display timing...</div>
+
+  <h3>Device</h3>
+    <table>
+      <tr><td>measured refresh</td><td id="cHz" class="dim">-</td></tr>
+      <tr><td>frame interval median / p95</td><td id="cInt" class="dim">-</td></tr>
+      <tr><td>late frames while measuring</td><td id="cLate" class="dim">-</td></tr>
+      <tr><td>40 Hz representable</td><td id="cElig" class="dim">-</td></tr>
+      <tr><td>duty cycles available</td><td id="cDuty" class="dim">-</td></tr>
+      <tr><td>WebGPU extended tonemap</td><td id="cGpu" class="dim">-</td></tr>
+      <tr><td>canvas colour space</td><td id="cSpace" class="dim">-</td></tr>
+      <tr><td>media (dynamic-range: high)</td><td id="cMqDR" class="dim">-</td></tr>
+      <tr><td>media (video-dynamic-range)</td><td id="cMqVDR" class="dim">-</td></tr>
+      <tr><td>CSS dynamic-range-limit</td><td id="cDrl" class="dim">-</td></tr>
+      <tr><td>HEVC Main10 (hvc1)</td><td id="cHevc" class="dim">-</td></tr>
+      <tr><td>AV1 Main 10-bit</td><td id="cAv1" class="dim">-</td></tr>
+      <tr><td>tuned carrier</td><td id="cCarrier" class="dim">-</td></tr>
+      <tr><td>audio sample rate</td><td id="cSr" class="dim">-</td></tr>
+      <tr><td>device pixel ratio</td><td id="cDpr" class="dim">-</td></tr>
+    </table>
+  <button id="remeasure">Re-measure</button>
+
+  <h3>Last session</h3>
+    <table>
+      <tr><td>duration</td><td id="rDur" class="dim">-</td></tr>
+      <tr><td>frames presented</td><td id="rFrames" class="dim">-</td></tr>
+      <tr><td>effective frame rate</td><td id="rRate" class="dim">-</td></tr>
+      <tr><td>cycles delivered</td><td id="rCycles" class="dim">-</td></tr>
+      <tr><td>dropped frames</td><td id="rDrop" class="dim">-</td></tr>
+      <tr><td>longest gap</td><td id="rGap" class="dim">-</td></tr>
+      <tr><td>audio/visual genlock</td><td id="rGenlock" class="dim">-</td></tr>
+      <tr><td>audio vs system clock</td><td id="rDrift" class="dim">-</td></tr>
+      <tr><td>verdict</td><td id="rVerdict" class="dim">-</td></tr>
+    </table>
+  <p class="sub">These numbers are what the browser meant to show, not what the screen did. macOS can
+    claim 120 Hz while running at 60 in Low Power Mode. OLED screens dim themselves without saying so.
+    Only a light sensor knows for sure.</p>
+  </div>
+</dialog>
+
+<dialog class="pane pane-config" id="configPane" aria-labelledby="configTitle">
+  <header class="pane-head">
+    <h2 id="configTitle">Settings</h2>
+    <div class="pane-actions">
+      <button class="text-btn" id="resetSettings" title="Put every setting back to its default">Reset</button>
+      <button class="icon-btn" data-close aria-label="Close"><i class="ph" aria-hidden="true">&#xE4F6;</i></button>
+    </div>
+  </header>
+  <div class="pane-body">
+  <h3>Session</h3>
+    <div class="ctl">
+      <label for="dur">session length</label>
+      <select id="dur">
+        <option value="30">30 seconds</option>
+        <option value="60">1 minute</option>
+        <option value="300">5 minutes</option>
+        <option value="1200">20 minutes</option>
+        <option value="3600" selected>1 hour</option>
+        <option value="0">unlimited</option>
+      </select>
+    </div>
+
+    <div class="ctl">
+      <label for="fullscreen">full screen</label>
+      <label><input type="checkbox" id="fullscreen" checked> fill the screen during a session</label>
+      <span class="dim">off keeps it in this window, so other tabs stay usable</span>
+    </div>
+
+    <div class="ctl">
+      <label for="vol">volume</label>
+      <input type="range" id="vol" min="0" max="1" step="0.01" value="0.8">
+      <span class="val" data-value id="volV">80%</span>
+      <span class="dim">the pulses are short, so it sounds quieter than the slider suggests</span>
+    </div>
+
+  <h3>Light</h3>
+    <div class="ctl">
+      <label for="source">drawn as</label>
+      <select id="source">
+        <option value="canvas">live</option>
+        <option value="video">prerendered video</option>
+      </select>
+      <span class="dim" id="sourceNote"></span>
+    </div>
+
+    <div class="ctl" id="ctlMode">
+      <label for="mode">style</label>
+      <select id="mode">
+        <option value="luminance" selected>white flicker</option>
+        <option value="chromatic">green / blue shimmer, gentler</option>
+      </select>
+      <span class="dim" id="modeNote"></span>
+    </div>
+
+    <div class="ctl">
+      <label for="level">brightness</label>
+      <input type="range" id="level" min="0.05" max="10" step="0.05" value="1">
+      <span class="val" data-value id="levelV">2.0x</span>
+      <span class="dim" id="levelNote"></span>
+    </div>
+
+    <div class="ctl" id="ctlChroma">
+      <label for="chroma">colour strength</label>
+      <input type="range" id="chroma" min="0" max="1" step="0.05" value="0.35">
+      <span class="val" data-value id="chromaV">35%</span>
+      <span class="dim" id="chromaNote"></span>
+    </div>
+
+    <div class="ctl" id="ctlFloor">
+      <label for="floor">dark level</label>
+      <input type="range" id="floor" min="0" max="0.9" step="0.05" value="0">
+      <span class="val" data-value id="floorV">0%  (full depth)</span>
+    </div>
+
+    <div class="ctl">
+      <label for="duty">on-time</label>
+      <select id="duty"></select>
+      <span class="dim">under 50% is what the research favors</span>
+    </div>
+
+    <div class="ctl">
+      <label for="field">field size</label>
+      <input type="range" id="field" min="0.2" max="1" step="0.1" value="1">
+      <span class="val" data-value id="fieldV">100%</span>
+      <span class="dim" id="fieldNote"></span>
+    </div>
+
+  <h3>Sound</h3>
+    <div class="ctl">
+      <label for="audio">sound</label>
+      <select id="audio">
+        <option value="tuned" selected>tuned noise</option>
+        <option value="music">your own music</option>
+        <option value="click">clicks, as in the mouse study</option>
+        <option value="tone">plain tone</option>
+        <option value="pink">plain pink noise</option>
+        <option value="off">off</option>
+      </select>
+      <span class="dim" id="audioNote"></span>
+    </div>
+
+    <div class="ctl hidden" id="ctlMusic">
+      <label for="musicFile">music file</label>
+      <input type="file" id="musicFile" accept="audio/*">
+      <span class="dim" id="musicNote">none loaded</span>
+    </div>
+
+    <div class="ctl" id="ctlEnv">
+      <label for="aDuty">pulse length</label>
+      <input type="range" id="aDuty" min="0.04" max="0.7" step="0.01" value="0.30">
+      <span class="val" data-value id="aDutyV">30%</span>
+      <span class="dim" id="aDutyNote"></span>
+    </div>
+
+    <div class="ctl">
+      <label for="aDepth">pulse depth</label>
+      <input type="range" id="aDepth" min="0.1" max="1" step="0.05" value="0.85">
+      <span class="val" data-value id="aDepthV">85%</span>
+      <span class="dim" id="aDepthNote"></span>
+    </div>
+
+    <div class="ctl" id="ctlCarrier">
+      <label for="aTilt">low-end weight</label>
+      <input type="range" id="aTilt" min="0" max="9" step="0.5" value="5">
+      <span class="val" data-value id="aTiltV">-5.0 dB/oct</span>
+      <span class="dim">0 is white noise, 3 is pink, 5 is tuned for 40 Hz</span>
+    </div>
+
+    <div class="ctl" id="ctlCarrier2">
+      <label for="aEmp">low-mid boost</label>
+      <input type="range" id="aEmp" min="0" max="9" step="0.5" value="3">
+      <span class="val" data-value id="aEmpV">+3.0 dB</span>
+      <span class="dim">a band of tones, since a single tone gets a weaker response</span>
+    </div>
+
+    <div class="ctl" id="ctlCoh">
+      <label for="aCoh">stereo split</label>
+      <input type="range" id="aCoh" min="300" max="2000" step="50" value="800">
+      <span class="val" data-value id="aCohV">800 Hz</span>
+      <span class="dim">same in both ears below this, wider above</span>
+    </div>
+
+    <div class="ctl" id="ctlDrift">
+      <label for="aDrift">slow drift</label>
+      <label><input type="checkbox" id="aDrift" checked> highs only, very slow</label>
+      <span class="dim">keeps an hour of noise from feeling static</span>
+    </div>
+  </div>
+</dialog>
+
+<div id="stage" hidden><div id="hud" hidden></div><div id="hint"></div>
+  <div id="sizeCtl"><button id="sizeDown" aria-label="Smaller">−</button><span id="sizeV"></span><button id="sizeUp"
+    aria-label="Bigger">+</button></div></div>
+
+<script src="audio.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

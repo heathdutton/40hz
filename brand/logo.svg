@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="live" viewBox="-30 -102.75 441.68 132.75" width="441.68" height="132.75" role="img" aria-label="40 Hz">
+<title>40 Hz, slowed down 40 times. One frame on, two off.</title>
+<style>
+svg { --wm-ink: #E3E5EE; --wm-lit: #6C8CFF; --wm-peak: #C3CFFF; --wm-off: #2A3050; --wm-tick: #3B4470; }
+@media (prefers-color-scheme: light) { svg { --wm-ink: #0E1116; --wm-lit: #6C8CFF; --wm-peak: #3F63F0; --wm-off: #D3D8E6; --wm-tick: #B4BDD8; } }
+.wm-ink { fill: var(--wm-ink); }
+.wm-lit { fill: var(--wm-lit); }
+.wm-off { fill: var(--wm-off); }
+.wm-glow { fill: var(--wm-lit); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .live .wm-lit  { animation: wm-flash 1s linear infinite; }
+  .live .wm-glow { animation: wm-glow 1s linear infinite; }
+  .live .wm-f2   { animation: wm-tick 1s linear -.6667s infinite; }
+  .live .wm-f3   { animation: wm-tick 1s linear -.3333s infinite; }
+}
+@keyframes wm-flash { 0% { fill: var(--wm-lit); } 4% { fill: var(--wm-peak); } 33% { fill: var(--wm-lit); } }
+@keyframes wm-glow  { 0% { opacity: 0; } 4% { opacity: 1; } 36% { opacity: 0; } }
+@keyframes wm-tick  { 0% { fill: var(--wm-off); } 4% { fill: var(--wm-tick); } 30% { fill: var(--wm-off); } }
+</style>
+<defs><filter id="wm-blur" x="-150%" y="-60%" width="400%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<rect class="wm-glow" x="0" y="-72.75" width="21" height="72.75" rx="4" filter="url(#wm-blur)"/>
+<rect class="wm-lit" x="0" y="-72.75" width="21" height="72.75" rx="4"/><rect class="wm-off wm-f2" x="31.5" y="-72.75" width="21" height="72.75" rx="4"/><rect class="wm-off wm-f3" x="63" y="-72.75" width="21" height="72.75" rx="4"/>
+<path class="wm-ink" d="M112.98 -14.91L112.98 -28.29L143.87 -72.75L154.91 -72.75L154.91 -56.58L148.87 -56.58L129.29 -28.24L129.29 -28.14L174.24 -28.14L174.24 -14.91L112.98 -14.91ZM148.92 0L148.92 -18.98L148.92 -24.93L148.92 -72.75L165.41 -72.75L165.41 0L148.92 0ZM208.54 1.17Q198.97 1.17 192.08 -3.39Q185.2 -7.95 181.51 -16.34Q177.82 -24.74 177.82 -36.35Q177.82 -47.96 181.51 -56.38Q185.19 -64.8 192.08 -69.36Q198.96 -73.93 208.54 -73.93Q218.16 -73.93 225.04 -69.37Q231.91 -64.81 235.59 -56.39Q239.27 -47.96 239.27 -36.32Q239.27 -24.73 235.59 -16.32Q231.91 -7.91 225.04 -3.37Q218.16 1.17 208.54 1.17ZM208.55 -12.58Q212.96 -12.58 216.14 -15.44Q219.31 -18.31 221.02 -23.63Q222.73 -28.96 222.73 -36.33Q222.73 -43.75 221.02 -49.08Q219.31 -54.41 216.13 -57.29Q212.95 -60.18 208.56 -60.18Q204.17 -60.18 200.97 -57.29Q197.78 -54.41 196.07 -49.08Q194.36 -43.75 194.36 -36.33Q194.36 -28.96 196.07 -23.63Q197.78 -18.31 200.98 -15.44Q204.18 -12.58 208.55 -12.58ZM262.07 0L262.07 -72.75L279.62 -72.75L279.62 -44.5L307.33 -44.5L307.33 -72.75L324.87 -72.75L324.87 0L307.33 0L307.33 -29.56L279.62 -29.56L279.62 0L262.07 0ZM332.32 0L332.32 -11.02L356.8 -38.38L356.8 -38.5L332.32 -38.5L332.32 -51.56L376.51 -51.56L376.51 -39.87L352.59 -13.11L352.59 -12.99L376.93 -12.99L376.93 0L332.32 0Z"/>
+</svg>

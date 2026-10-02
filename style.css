@@ -1,0 +1,489 @@
+/* 40 Hz · app styles. Every value comes from theme/styles.css tokens. */
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }   /* several rules below set display; hidden must still win */
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  font-feature-settings: "tnum" 1, "ss01" 1, "cv11" 1;   /* data features */
+  font-optical-sizing: auto;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+  transition: color var(--motion-fast) var(--ease-standard);
+}
+a:hover { text-decoration: underline; }
+em { font-style: normal; font-weight: 600; color: var(--on-surface); }   /* no italic face ships */
+b, strong { font-weight: 600; }
+
+/* Status colours are meaning, so they switch instantly rather than tween. */
+.ok   { color: var(--success); }
+.warn { color: var(--warning); }
+.bad  { color: var(--error); }
+/* Neutral readouts. Muted rather than subtle: subtle is placeholders only and fails AA as copy. */
+.dim  { color: var(--on-surface-muted); }
+
+/* ── Top bar: the only chrome on the landing ─────────────────────────────── */
+
+.topbar {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 5;
+  display: flex;
+  gap: var(--space-1);
+}
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;                     /* touch target */
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  color: var(--on-surface-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease-standard),
+              background-color var(--motion-fast) var(--ease-standard);
+}
+.icon-btn:hover { color: var(--brand); background: var(--surface-1); }
+a.icon-btn:hover { text-decoration: none; }
+
+/* Our own tooltips. The native title tooltip waits about a second, which reads as broken on an icon-only bar. */
+[data-tip] { position: relative; }
+[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  z-index: 6;
+  top: calc(100% + 6px);
+  left: 50%;
+  padding: 4px 8px;
+  font: 500 12px/1.4 var(--font-sans);
+  white-space: nowrap;
+  color: var(--on-surface);
+  background: var(--surface-2);
+  border: 1px solid var(--outline-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elev-2);
+  opacity: 0;
+  transform: translate(-50%, -2px);
+  pointer-events: none;
+  transition: opacity var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-standard);
+}
+@media (hover: hover) { [data-tip]:hover::after { opacity: 1; transform: translate(-50%, 0); } }
+[data-tip]:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+/* The last icon sits at the screen edge, so its tip hangs left instead of centring. */
+.topbar > :last-child::after { left: auto; right: 0; transform: translateY(-2px); }
+@media (hover: hover) { .topbar > :last-child:hover::after { transform: translateY(0); } }
+.topbar > :last-child:focus-visible::after { transform: translateY(0); }
+
+/* ── Landing ─────────────────────────────────────────────────────────────── */
+
+/* Anchored from the top rather than centred: the test result adds content, and centring would pull
+   everything already on screen upward when it lands. */
+.landing {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: clamp(80px, 18vh, 200px) var(--space-5) var(--space-8);
+}
+h1 {
+  margin: 0;
+  font-size: 76px;                 /* display-2xl */
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The name, outlined from Inter 800 at this size. The viewBox carries 0.3em of room for the glow on every side,
+   so the negative margins hand back exactly the 1.05em line box the plain text used and nothing below moves. */
+.wordmark {
+  --wm-ink: var(--on-surface);
+  --wm-lit: var(--brand);
+  --wm-peak: #C3CFFF;
+  --wm-off: var(--surface-3);
+  --wm-tick: #3B4470;
+}
+.wordmark svg { display: block; height: 1.3275em; margin: -0.1385em 0 -0.139em -0.3em; overflow: visible; }
+
+/* The flicker at 1/40 speed: 25 ms becomes 1 s, each 120 Hz frame a third of a second. The lit bar flashes on
+   its frame and the dark bars only tick as the beat passes them, so it counts in threes. One flash a second, well
+   under the 3 Hz photosensitivity limit, and it waits for the device check to finish. */
+.wordmark .wm-ink { fill: var(--wm-ink); }
+.wordmark .wm-lit { fill: var(--wm-lit); }
+.wordmark .wm-off { fill: var(--wm-off); }
+.wordmark .wm-glow { fill: var(--wm-lit); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .wordmark.live .wm-lit  { animation: wm-flash 1s linear infinite; }
+  .wordmark.live .wm-glow { animation: wm-glow 1s linear infinite; }
+  .wordmark.live .wm-f2   { animation: wm-tick 1s linear -.6667s infinite; }
+  .wordmark.live .wm-f3   { animation: wm-tick 1s linear -.3333s infinite; }
+}
+@keyframes wm-flash { 0% { fill: var(--wm-lit); } 4% { fill: var(--wm-peak); } 33% { fill: var(--wm-lit); } }
+@keyframes wm-glow  { 0% { opacity: 0; } 4% { opacity: 1; } 36% { opacity: 0; } }
+@keyframes wm-tick  { 0% { fill: var(--wm-off); } 4% { fill: var(--wm-tick); } 30% { fill: var(--wm-off); } }
+/* Nothing repaints under the stage during a session. */
+body:has(#stage:not([hidden])) .wordmark * { animation-play-state: paused; }
+
+.tagline, .gate-text span, #result { text-wrap: pretty; }
+.tagline {
+  margin: var(--space-3) 0 var(--space-7);
+  font-size: 18px;
+  color: var(--on-surface-muted);
+}
+
+/* Opacity only, so it runs on the compositor and leaves the refresh measurement alone. */
+.chips.pending span[id] { animation: pulse 900ms var(--ease-standard) infinite alternate; }
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.35; } }
+
+.chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--outline-subtle);
+  border-radius: var(--radius-lg);
+}
+.chips li {
+  display: grid;
+  grid-template-columns: 24px 112px 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+.chips li + li { border-top: 1px solid var(--outline-subtle); }
+.chips i.ph { font-size: 20px; color: var(--on-surface-muted); }
+.chips i.chip-ok { color: var(--success); }
+.chip-label { font-size: 14px; color: var(--on-surface-muted); }
+/* One line per result, so a long answer can't push the rows below it down. */
+.chips span[id] { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Small enough to sit inside the row's line height, so showing it can't make the row taller. */
+.chip-fix { padding: 0 10px; font-size: 13px; line-height: 22px; border-radius: var(--radius-sm); }
+
+.gate { margin-top: var(--space-5); animation: arrive var(--motion-slow) var(--ease-enter); }
+@keyframes arrive { from { opacity: 0; } to { opacity: 1; } }
+.gate-text {
+  display: flex;
+  gap: var(--space-3);
+  margin: 0;
+  color: var(--on-surface-muted);
+}
+.gate-text i.ph { flex: none; margin-top: 3px; font-size: 20px; color: var(--warning); }
+.actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-5); }
+.actions button { display: inline-flex; align-items: center; gap: var(--space-2); }
+.actions i.ph { font-size: 18px; }
+
+#result { margin: var(--space-5) 0 0; }
+
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+
+button {
+  margin: 0;
+  padding: 12px var(--space-5);
+  font: 600 16px var(--font-sans);
+  color: var(--on-surface);
+  background: transparent;
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease-standard),
+              background-color var(--motion-fast) var(--ease-standard),
+              border-color var(--motion-fast) var(--ease-standard);
+}
+button:hover:not(:disabled) { color: var(--brand); border-color: var(--brand); }
+
+/* Primary takes the brand fill. Hover steps lighter to T-70 because the darker
+   T-50 fails AA for a label against either text colour. */
+button.primary { color: var(--bg); background: var(--brand); border-color: var(--brand); }
+button.primary:hover:not(:disabled) { color: var(--bg); background: var(--brand-70); border-color: var(--brand-70); }
+
+button:disabled {
+  color: var(--on-surface-subtle);
+  background: var(--surface);
+  border-color: var(--outline-subtle);
+  cursor: default;
+}
+
+:is(button, select, input, a):focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+/* ── Panes: stats overlay and settings drawer (native <dialog>) ──────────── */
+
+dialog.pane {
+  margin: 0;
+  padding: 0;
+  color: var(--on-surface);
+  background: var(--surface);
+  border: 1px solid var(--outline-subtle);
+  box-shadow: var(--elev-4);
+  transition: opacity var(--motion-slow) var(--ease-enter),
+              transform var(--motion-slow) var(--ease-enter);
+}
+dialog.pane::backdrop { background: rgba(14, 17, 22, 0.72); }
+
+/* Qualified with dialog.pane so these outrank the margin reset above. */
+dialog.pane-config {
+  inset: 0 0 0 auto;
+  width: min(600px, 100vw);
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;                 /* the UA's dialog:modal clamp would leave a gap on phones */
+  max-height: none;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+dialog.pane-stats, dialog.pane-fix {
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+  width: min(820px, calc(100vw - var(--space-6)));
+  max-height: calc(100vh - var(--space-8));
+  border-radius: var(--radius-lg);
+}
+dialog.pane-fix { width: min(520px, calc(100vw - var(--space-6))); }
+.pane-fix .pane-body p { margin: var(--space-4) 0 0; }
+.pane-fix ol { margin: var(--space-4) 0 0; padding-left: var(--space-5); }
+.pane-fix li + li { margin-top: var(--space-2); }
+@starting-style {
+  .pane-config[open] { opacity: 0; transform: translateX(24px); }
+  .pane-stats[open], .pane-fix[open] { opacity: 0; transform: translateY(8px); }
+}
+
+.pane-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
+  background: var(--surface);
+  border-bottom: 1px solid var(--outline-subtle);
+}
+.pane-head h2 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+.pane-actions { display: flex; align-items: center; gap: var(--space-2); }
+.text-btn { padding: 8px var(--space-4); font-size: 14px; }
+.pane-body { padding: 0 var(--space-5) var(--space-6); }
+.pane-body h3 { margin: var(--space-6) 0 var(--space-2); font-size: 20px; font-weight: 600; line-height: 1.35; }
+.pane-body > button { margin-top: var(--space-4); padding: 8px var(--space-4); font-size: 14px; }
+p.sub { margin: var(--space-4) 0 0; font-size: 14px; color: var(--on-surface-muted); }
+
+code {
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--surface-1);
+  border-radius: var(--radius-sm);
+}
+
+/* ── Stats: verdict card and readout tables ─────────────────── */
+
+.verdict {
+  margin: var(--space-5) 0 0;
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface-1);
+  border: 1px solid var(--outline-subtle);
+  border-radius: var(--radius-lg);
+}
+.verdict b { display: block; margin-bottom: var(--space-1); }
+.verdict .why { display: block; margin-top: var(--space-2); font-size: 14px; color: var(--on-surface-muted); }
+.verdict.tier-full { border-color: var(--success-fill); }
+.verdict.tier-full b { color: var(--success); }
+.verdict.tier-sdr  { border-color: var(--warning-fill); }
+.verdict.tier-sdr b  { color: var(--warning); }
+.verdict.tier-none { border-color: var(--error-fill); }
+.verdict.tier-none b { color: var(--error); }
+
+table { width: 100%; border-collapse: collapse; }
+td {
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
+  vertical-align: top;
+  border-bottom: 1px solid var(--outline-subtle);
+}
+tr:hover td { background: var(--surface-2); }
+td:first-child {
+  width: 220px;
+  padding-left: var(--space-2);
+  font-size: 14px;
+  color: var(--on-surface-muted);
+  white-space: nowrap;
+}
+td:last-child {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-variant-ligatures: none;    /* ligatures off for data */
+}
+
+/* ── Settings rows ───────────────────────────────────────────────────────── */
+
+.ctl {
+  --label-w: 168px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--outline-subtle);
+}
+.ctl > label:first-child {
+  flex: none;
+  width: var(--label-w);
+  font-size: 14px;
+  color: var(--on-surface-muted);
+}
+/* Readouts keyed on a data attribute, because set() in app.js replaces className wholesale. */
+.ctl [data-value] {
+  min-width: 80px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--on-surface);
+}
+/* Notes sit on their own line under the control column, whatever status class JS swaps onto them. */
+.ctl > span:not([data-value]) {
+  flex-basis: 100%;
+  padding-left: calc(var(--label-w) + var(--space-3));
+  font-size: 13px;
+}
+.ctl > label:not(:first-child) { display: inline-flex; align-items: center; gap: var(--space-2); font-size: 14px; }
+.ctl.hidden { display: none; }
+
+select, input[type=file] {
+  max-width: 100%;
+  padding: 6px var(--space-2);
+  font: 14px var(--font-sans);
+  color: var(--on-surface);
+  background: var(--surface-1);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--motion-fast) var(--ease-standard);
+}
+/* Our own caret, inset from the edge. appearance: none also makes every browser draw the same box. */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%23A8ADBD' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+select:hover { border-color: var(--brand); }
+/* One highlight when focused. The page-wide ring around a brand border read as two outlines. */
+select:focus-visible { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand); }
+input[type=range], input[type=checkbox] { accent-color: var(--brand); }
+input[type=range] { width: 180px; }
+
+/* Default marker under each slider. The track's travel starts half a thumb (8px) in from each end. */
+.range-wrap { position: relative; display: inline-flex; align-items: center; }
+.default-tick {
+  position: absolute;
+  left: calc(8px + var(--at) * (100% - 16px));
+  bottom: -4px;
+  width: 2px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--on-surface-subtle);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* ── Stimulus stage ──────────────────────────────────────────────────────────
+   Deliberately pure #000, the one place this page leaves the surface stack. On OLED the off
+   state must emit no light at all. The system background lights the pixels, which cuts
+   modulation depth and raises average picture level, the quantity ABL reacts to. The surround
+   of a reduced field stays black for the same reason. */
+
+#stage {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+#stage canvas, #stage #domfield, #stage video { display: block; background: #000; object-fit: fill; }
+
+/* Difference blending keeps text legible over both phases of the flash, so it stays neutral grey:
+   a brand hue would invert into a different colour on every lit frame. */
+#hud, #hint {
+  position: absolute;
+  z-index: 11;
+  font-family: var(--font-mono);
+  color: #6a6a6a;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+#hud { left: var(--space-4); bottom: var(--space-3); font-size: 11px; line-height: 1.7; white-space: pre; }
+#hint {
+  bottom: var(--space-6);
+  left: 50%;
+  font-size: 13px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity var(--motion-slower) var(--ease-standard);
+}
+#hint.show { opacity: 1; }
+
+/* Size buttons, same difference-blended grey as the hint so they read over both phases of the flash. */
+#stage.idle { cursor: none; }
+#sizeCtl {
+  position: absolute;
+  z-index: 11;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #6a6a6a;
+  mix-blend-mode: difference;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+#sizeCtl button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font: 500 22px var(--font-sans);
+  color: #6a6a6a;
+  border-color: #6a6a6a;
+  border-radius: 50%;
+}
+#sizeCtl button:hover:not(:disabled) { color: #9a9a9a; border-color: #9a9a9a; }
+#stage.idle #sizeCtl { opacity: 0; pointer-events: none; }
+
+/* ── Small screens: iPhone Pro is an eligible 120 Hz device, so this has to hold there ── */
+
+@media (max-width: 640px) {
+  .landing { padding: var(--space-9) var(--space-4) var(--space-9); }
+  h1 { font-size: 60px; }
+  .chips li { grid-template-columns: 20px 74px 1fr auto; gap: 6px; padding: var(--space-3); }
+  .chip-fix { padding: 0 8px; }
+  dialog.pane-config { width: 100vw; border-radius: 0; }
+  .pane-body { padding: 0 var(--space-4) var(--space-6); }
+  td:first-child, .ctl > label:first-child { width: 100%; white-space: normal; }
+  td:first-child { display: block; padding-bottom: 0; border-bottom: 0; }
+  td:last-child { display: block; padding-left: var(--space-2); }
+  .ctl > span:not([data-value]) { padding-left: 0; }
+  input[type=range], .range-wrap { width: 100%; }
+}

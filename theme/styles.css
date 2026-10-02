@@ -1,0 +1,125 @@
+/* 40 Hz · theme. Colour, type, spacing and motion tokens, plus the fonts the page renders. */
+
+/* ── Local font kit ─────────────────────────────────────────────────────────
+   Relative paths so the page renders identically from file:// and from Pages. */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/Inter[opsz,wght].ttf') format('truetype-variations'),
+       url('./fonts/Inter[opsz,wght].ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./fonts/JetBrainsMono[wght].ttf') format('truetype-variations'),
+       url('./fonts/JetBrainsMono[wght].ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Phosphor, Regular only ─────────────────────────────────────────
+   Declare the face and use codepoints directly, skipping the
+   class-mapping CSS. Glyphs are referenced by entity in index.html. */
+@font-face {
+  font-family: 'Phosphor';
+  src: url('./fonts/Phosphor.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+i.ph {
+  font-family: 'Phosphor';
+  font-style: normal;
+  display: inline-block;
+  vertical-align: -0.125em;
+  line-height: 1;
+}
+
+/* ── Tokens ────────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --bg:                #0E1116;
+  --surface:           #141822;
+  --surface-1:         #1B2030;
+  --surface-2:         #222840;
+  --surface-3:         #2A3050;
+  --on-surface:        #E3E5EE;
+  --on-surface-muted:  #A8ADBD;
+  --on-surface-subtle: #6E7488;
+  --outline:           #3A4055;
+  --outline-subtle:    #262C3C;
+
+  /* Brand and the tonal steps the site uses */
+  --brand:             #6C8CFF;
+  --brand-container:   #28409A;   /* T-30 */
+  --brand-70:          #94A8FF;   /* T-70 */
+
+  /* Semantic: fill for backgrounds and borders, text for use on dark directly */
+  --success-fill: #2E7D5A;  --success: #81C995;
+  --warning-fill: #A88016;  --warning: #FFD56B;
+  --error-fill:   #9B2A2A;  --error:   #FF8A80;
+  --info-fill:    #1F6F84;  --info:    #4DD0E1;
+
+  /* Categorical */
+  --c1: #6C8CFF;  --c2: #F7C835;  --c3: #BE85F8;  --c4: #8BB626;  --c5: #E975C3;
+  --c6: #14C285;  --c7: #FC727C;  --c8: #14BBBF;  --c9: #F48223;  --c10: #13B2F1;
+
+  /* Type stacks */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", Menlo, monospace;
+
+  /* Spacing, 8px grid */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 24px;  --space-6: 32px;  --space-7: 48px;  --space-8: 64px;  --space-9: 96px;
+
+  /* Radii */
+  --radius-sm: 4px;  --radius-md: 8px;  --radius-lg: 12px;  --radius-xl: 20px;  --radius-full: 9999px;
+
+  /* Elevation */
+  --elev-1: 0 1px 2px rgba(0,0,0,0.4);
+  --elev-2: 0 2px 6px rgba(0,0,0,0.5);
+  --elev-3: 0 6px 16px rgba(0,0,0,0.55);
+  --elev-4: 0 12px 32px rgba(0,0,0,0.6);
+
+  /* Focus ring: inner ring matches the background for a clean offset */
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--brand);
+
+  /* Motion */
+  --motion-fast:     150ms;
+  --motion-standard: 240ms;
+  --motion-slow:     400ms;
+  --motion-slower:   600ms;
+
+  --ease-standard:   cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0.2, 1);
+  --ease-enter:      cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit:       cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ── Page shell ─────────────────────────────────────────────────────────────
+   Dark surface owns html/body so a cold load doesn't flash white before the
+   stylesheet parses. Belt-and-braces with the inline shim in index.html. */
+
+html, body {
+  background: var(--bg);
+  color: var(--on-surface);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────
+   Covers CSS transitions and animations only. Anything driven from
+   requestAnimationFrame is unaffected, which is the point for a stimulus page. */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
